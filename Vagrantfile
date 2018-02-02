@@ -43,6 +43,21 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       vb.customize ["modifyvm", :id, "--memory", "2048"]
       vb.customize ["modifyvm", :id, "--cpus", "2"]   
   end 
+
+## For Ansible Tower
+  config.vm.define "ansible_tower" do |ansible_tower|
+    config.vm.provision "shell", path: "./provisioning/ansible_tower.sh", args: ""
+#    config.vm.network "public_network", :dev => "br0", :mode => "bridge", :type => "bridge0", :ip => "192.158.10.200", :netmask => "255.255.255.0", :auto_config => "false"
+    config.vm.network "private_network", :dev => "eth0", :ip => "192.200.10.200"
+    config.vm.network "forwarded_port", guest: 8080, host: 8080
+    rancher.vm.box = OS_NAME
+    rancher.vm.box_url = OS_URL
+  end
+
+  config.vm.provider :virtualbox do |vb|
+      vb.customize ["modifyvm", :id, "--memory", "2048"]
+      vb.customize ["modifyvm", :id, "--cpus", "2"]   
+  end 
 end
 
 
