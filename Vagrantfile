@@ -49,7 +49,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.provision "shell", path: "./provisioning/ansible_tower.sh", args: ""
 #    config.vm.network "public_network", :dev => "br0", :mode => "bridge", :type => "bridge0", :ip => "192.158.10.200", :netmask => "255.255.255.0", :auto_config => "false"
     config.vm.network "private_network", :dev => "eth0", :ip => "192.200.10.200"
-    config.vm.network "forwarded_port", guest: 8080, host: 8080
+    config.vm.network "forwarded_port", guest: 80, host: 8090
     ansible_tower.vm.box = OS_NAME
     ansible_tower.vm.box_url = OS_URL
   end
